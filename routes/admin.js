@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const adminController = require("../controllers/adminController");
 
-router.get('/dashboard', adminController.index);
+router.get('/dashboard', adminController.viewDashboard);
+router.get('/categories', adminController.viewCategory);
 
 module.exports = router;
