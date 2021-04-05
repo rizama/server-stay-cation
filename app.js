@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost:27027/myapp', {
+mongoose.connect('mongodb+srv://sam:sam123>@cluster0.khpxa.mongodb.net/staycation', {
   useNewUrlParser: true,
   useFindAndModify: false
 })
