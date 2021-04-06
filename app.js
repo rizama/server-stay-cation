@@ -4,10 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose");
-mongoose.connect('mongodb+srv://sam:sam123>@cluster0.khpxa.mongodb.net/staycation', {
-  useNewUrlParser: true,
-  useFindAndModify: false
-})
+const url = 'mongodb+srv://admin:admin@cluster0.3w0ji.mongodb.net/staycation?retryWrites=true&w=majority';
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+  .then((result => {
+    console.log("Connected Mongodb");
+  }))
+  .catch((e) => console.log(e));
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
