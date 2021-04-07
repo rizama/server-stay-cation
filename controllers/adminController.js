@@ -5,13 +5,15 @@ module.exports = {
         res.render('admin/dashboard/view_dashboard');
     },
 
-    viewCategory: (req, res) => {
-        res.render('admin/category/view_category');
+    viewCategory: async (req, res) => {
+        const categories = await Category.find();
+
+        res.render('admin/category/view_category', { categories });
     },
     addCategory: async (req, res) => {
         const name = req.body.name;
         await Category.create({ name });
-        
+
         res.redirect('/admin/categories');
     },
 
