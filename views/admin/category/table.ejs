@@ -7,7 +7,7 @@
 			data-toggle="modal"
 			data-target="#staticBackdrop"
 		>
-			Add
+			<i class="fa fa-plus"></i>
 		</button>
 	</div>
 	<div class="card-body">
@@ -26,11 +26,33 @@
 					</tr>
 				</thead>
 				<tbody>
+					<% for(let i = 0; i < categories.length; i++){ %>
 					<tr>
-						<td>Tiger Nixon</td>
-						<td>System Architect</td>
-						<td>Edinburgh</td>
+						<td><%= i + 1 %></td>
+						<td><%= categories[i].name %></td>
+						<td>
+							<form
+								action="/admin/categories/<%= categories[i].id %>?_method=DELETE"
+								method="POST"
+							>
+								<a
+									href="javascript:void();"
+									type="button"
+									class="btn btn-warning btn-circle btn-sm button-update"
+									data-id="<%= categories[i].id %>"
+									data-name="<%= categories[i].name %>"
+									><i class="fas fa-edit"></i
+								></a>
+								<button
+									type="submit"
+									class="btn btn-danger btn-circle btn-sm"
+								>
+									<i class="fas fa-trash"></i>
+								</button>
+							</form>
+						</td>
 					</tr>
+					<% } %>
 				</tbody>
 			</table>
 		</div>
