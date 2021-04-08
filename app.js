@@ -3,11 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+require('dotenv').config();
+
 const mongoose = require("mongoose");
-const url = 'mongodb+srv://admin:admin@cluster0.3w0ji.mongodb.net/staycation?retryWrites=true&w=majority';
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+const url = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0-shard-00-00.3w0ji.mongodb.net:27017,cluster0-shard-00-01.3w0ji.mongodb.net:27017,cluster0-shard-00-02.3w0ji.mongodb.net:27017/${process.env.MONGO_DEFAULT_DB}?ssl=true&replicaSet=atlas-13gze6-shard-0&authSource=${process.env.MONGO_USER}&retryWrites=true&w=majority`;
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result => {
-    console.log("Connected Mongodb");
+    console.log("Connected to Mongodb");
   }))
   .catch((e) => console.log(e));
 
