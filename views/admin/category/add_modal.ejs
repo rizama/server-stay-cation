@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div
 	class="modal fade"
-	id="staticBackdrop"
+	id="add-modal"
 	data-backdrop="static"
 	data-keyboard="false"
 	tabindex="-1"
@@ -12,7 +12,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="staticBackdropLabel">
-					Modal title
+					Add Cateogry
 				</h5>
 				<button
 					type="button"
@@ -26,11 +26,11 @@
 			<form method="POST" action="/admin/categories">
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="name">Name</label>
+						<label for="name-edit">Name</label>
 						<input
 							type="text"
 							class="form-control"
-							id="name"
+							id="name-edit"
 							aria-describedby="emailHelp"
                             placeholder="Name"
                             name="name"
