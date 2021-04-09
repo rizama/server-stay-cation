@@ -16,6 +16,15 @@ module.exports = {
 
         res.redirect('/admin/categories');
     },
+    updateCategory: async (req, res) => {
+        const { id, name } = req.body;
+
+        const category = await Category.findOne({ _id: id });
+        category.name = name;
+        await category.save();
+
+        res.redirect('/admin/categories');
+    },
 
     viewBank: (req, res) => {
         res.render('admin/bank/view_bank');
