@@ -11,10 +11,16 @@ module.exports = {
         res.render('admin/category/view_category', { categories });
     },
     storeCategory: async (req, res) => {
-        const name = req.body.name;
-        await Category.create({ name });
+        try {
+            const name = req.body.name;
+            await Category.create({ name });
 
-        res.redirect('/admin/categories');
+            res.redirect('/admin/categories');
+        } catch (error) {
+            res.redirect('/admin/categories');
+
+        }
+
     },
     updateCategory: async (req, res) => {
         const { id, name } = req.body;
