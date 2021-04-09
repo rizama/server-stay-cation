@@ -10,7 +10,7 @@ module.exports = {
 
         res.render('admin/category/view_category', { categories });
     },
-    addCategory: async (req, res) => {
+    storeCategory: async (req, res) => {
         const name = req.body.name;
         await Category.create({ name });
 
@@ -22,6 +22,14 @@ module.exports = {
         const category = await Category.findOne({ _id: id });
         category.name = name;
         await category.save();
+
+        res.redirect('/admin/categories');
+    },
+    destroyCategory: async (req, res) => {
+        const { id } = req.params;
+
+        const category = await Category.findOne({ _id: id });
+        await category.remove();
 
         res.redirect('/admin/categories');
     },
