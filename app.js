@@ -1,9 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var methodOverride = require("method-override");
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const methodOverride = require("method-override");
+const flash = require("connect-flash");
+const session = require("express-session");
 
 require('dotenv').config();
 
@@ -27,6 +29,13 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(methodOverride('_method'));
+app.use(session({
+  secret: 'asd',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}));
+app.use(flash());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
