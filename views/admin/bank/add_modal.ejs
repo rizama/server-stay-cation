@@ -12,7 +12,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="staticBackdropLabel">
-					Add Cateogry
+					Add Bank
 				</h5>
 				<button
 					type="button"
@@ -23,8 +23,32 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form method="POST" action="/admin/categories">
+			<form method="POST" action="/admin/bank">
 				<div class="modal-body">
+					<div class="form-group">
+						<label for="name-edit">Name Bank</label>
+						<input
+							type="text"
+							class="form-control"
+							id="name-edit"
+							aria-describedby="emailHelp"
+                            placeholder="Name Bank"
+                            name="nameBank"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="name-edit">No Rekening</label>
+						<input
+							type="text"
+							class="form-control"
+							id="name-edit"
+							aria-describedby="emailHelp"
+                            placeholder="Nomor Rekening"
+                            name="nomorRekening"
+							required
+						/>
+					</div>
 					<div class="form-group">
 						<label for="name-edit">Name</label>
 						<input
@@ -34,6 +58,17 @@
 							aria-describedby="emailHelp"
                             placeholder="Name"
                             name="name"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="name-edit">Image</label>
+						<input
+							type="file"
+							class="form-control"
+							id="name-edit"
+							aria-describedby="emailHelp"
+                            name="image"
 							required
 						/>
 					</div>
