@@ -1,4 +1,5 @@
 const Category = require("../models/Category");
+const Bank = require("../models/Bank");
 
 module.exports = {
     viewDashboard: (req, res) => {
@@ -85,15 +86,20 @@ module.exports = {
     },
     storeBank: async (req, res) => {
         try {
-            const name = req.body.name;
-            await Category.create({ name });
-            req.flash('alertMessage', 'Success Add Category');
+            const {name, nameBank, nomorRekening} = req.body;
+            await Bank.create({ 
+                name, 
+                nameBank, 
+                nomorRekening,
+                imageUrl: `image/${req.file.filename}`
+            });
+            req.flash('alertMessage', 'Success Add Bank');
             req.flash('alertStatus', 'success');
-            res.redirect('/admin/categories');
+            res.redirect('/admin/bank');
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
-            res.redirect('/admin/categories');
+            res.redirect('/admin/bank');
         }
 
     },
