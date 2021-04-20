@@ -70,12 +70,14 @@ module.exports = {
 
     viewBank: (req, res) => {
         try {
+            const bank = await Bank.find();
             const alertMessage = req.flash("alerMessage");
             const alertStatus = req.flash("alertStatus");
             const alert = { message: alertMessage, status: alertStatus };
             res.render('admin/bank/view_bank', {
                 title: "Staycation | Bank",
-                alert
+                alert,
+                bank
             });
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
