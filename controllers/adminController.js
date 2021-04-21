@@ -68,10 +68,10 @@ module.exports = {
         }
     },
 
-    viewBank: (req, res) => {
+    viewBank: async (req, res) => {
         try {
             const bank = await Bank.find();
-            const alertMessage = req.flash("alerMessage");
+            const alertMessage = req.flash("alertMessage");
             const alertStatus = req.flash("alertStatus");
             const alert = { message: alertMessage, status: alertStatus };
             res.render('admin/bank/view_bank', {
@@ -93,7 +93,7 @@ module.exports = {
                 name, 
                 nameBank, 
                 nomorRekening,
-                imageUrl: `image/${req.file.filename}`
+                imageUrl: `images/${req.file.filename}`
             });
             req.flash('alertMessage', 'Success Add Bank');
             req.flash('alertStatus', 'success');
