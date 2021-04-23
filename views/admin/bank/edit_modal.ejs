@@ -24,13 +24,14 @@
 				</button>
 			</div>
 			<form method="POST" action="/admin/bank?_method=PUT" enctype="multipart/form-data">
+				<input type="hidden" name="id" class="id">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="name-edit">Name Bank</label>
 						<input
 							type="text"
 							class="form-control nameBank"
-							id="name-edit"
+							id="name-bank-edit"
 							aria-describedby="emailHelp"
                             placeholder="Name Bank"
                             name="nameBank"
@@ -42,7 +43,7 @@
 						<input
 							type="text"
 							class="form-control nomorRekening"
-							id="name-edit"
+							id="norek-edit"
 							aria-describedby="emailHelp"
                             placeholder="Nomor Rekening"
                             name="nomorRekening"
@@ -66,7 +67,7 @@
 						<input
 							type="file"
 							class="form-control"
-							id="name-edit"
+							id="image-edit"
 							aria-describedby="emailHelp"
                             name="image"
 						/>
@@ -84,7 +85,7 @@
 						Close
 					</button>
 					<button type="submit" class="btn btn-primary">
-						Add
+						Update
 					</button>
 				</div>
 			</form>
