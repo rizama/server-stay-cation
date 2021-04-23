@@ -13,7 +13,7 @@ module.exports = {
     viewCategory: async (req, res) => {
         try {
             const categories = await Category.find();
-            const alertMessage = req.flash('alerMessage');
+            const alertMessage = req.flash('alertMessage');
             const alertStatus = req.flash('alertStatus');
             const alert = { message: alertMessage, status: alertStatus };
             res.render('admin/category/view_category', {
@@ -126,7 +126,7 @@ module.exports = {
                 try {
                     await fs.unlink(path.join(`public/${bank.imageUrl}`));
                 } catch (error) {
-                    console.log("Image Not Found");
+                    console.log('Image Not Found');
                 }
                 bank.name = name;
                 bank.nameBank = nameBank;
@@ -137,6 +137,27 @@ module.exports = {
                 req.flash('alertStatus', 'success');
                 res.redirect('/admin/bank');
             }
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`);
+            req.flash('alertStatus', 'danger');
+            res.redirect('/admin/bank');
+        }
+    },
+    destroyBank: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            const bank = await Bank.findOne({ _id: id });
+            try {
+                await fs.unlink(path.join(`public/${bank.imageUrl}`));
+            } catch (error) {
+                console.log('Image Not Found');
+            }
+            await bank.remove();
+
+            req.flash('alertMessage', 'Success Delete Bank');
+            req.flash('alertStatus', 'success');
+            res.redirect('/admin/bank');
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
