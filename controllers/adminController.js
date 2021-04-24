@@ -165,9 +165,11 @@ module.exports = {
         }
     },
 
-    viewItem: (req, res) => {
+    viewItem: async (req, res) => {
+        const categories = await Category.find();
         res.render('admin/item/view_item', {
             title: 'Staycation | Items',
+            categories
         });
     },
 
