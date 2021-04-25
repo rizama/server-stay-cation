@@ -1,5 +1,7 @@
 const Category = require('../models/Category');
 const Bank = require('../models/Bank');
+const Item = require('../models/Item');
+const Image = require('../models/Image');
 const fs = require('fs-extra');
 const path = require('path');
 
@@ -114,29 +116,22 @@ module.exports = {
 
             const bank = await Bank.findOne({ _id: id });
 
-            if (req.file == undefined) {
-                bank.name = name;
-                bank.nameBank = nameBank;
-                bank.nomorRekening = nomorRekening;
-                await bank.save();
-                req.flash('alertMessage', 'Success Update Bank');
-                req.flash('alertStatus', 'success');
-                res.redirect('/admin/bank');
-            } else {
+            bank.name = name;
+            bank.nameBank = nameBank;
+            bank.nomorRekening = nomorRekening;
+            if (req.file) {
                 try {
                     await fs.unlink(path.join(`public/${bank.imageUrl}`));
                 } catch (error) {
                     console.log('Image Not Found');
                 }
-                bank.name = name;
-                bank.nameBank = nameBank;
-                bank.nomorRekening = nomorRekening;
                 bank.imageUrl = `images/${req.file.filename}`;
-                await bank.save();
-                req.flash('alertMessage', 'Success Update Bank');
-                req.flash('alertStatus', 'success');
-                res.redirect('/admin/bank');
             }
+            await bank.save();
+
+            req.flash('alertMessage', 'Success Update Bank');
+            req.flash('alertStatus', 'success');
+            res.redirect('/admin/bank');
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
@@ -166,11 +161,53 @@ module.exports = {
     },
 
     viewItem: async (req, res) => {
-        const categories = await Category.find();
-        res.render('admin/item/view_item', {
-            title: 'Staycation | Items',
-            categories
-        });
+        try {
+            const alertMessage = req.flash('alertMessage');
+            const alertStatus = req.flash('alertStatus');
+            const alert = { message: alertMessage, status: alertStatus };
+            const categories = await Category.find();
+            res.render('admin/item/view_item', {
+                title: 'Staycation | Items',
+                categories,
+                alert
+            });
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`);
+            req.flash('alertStatus', 'danger');
+            res.redirect('/admin/items');
+        }
+    },
+    storeItem: async (req, res) => {
+        try {
+            const { categoryId, title, price, city, about } = req.body;
+            if (req.files.length > 0) {
+                const category = await Category.findOne({ _id: categoryId });
+                const newItem = {
+                    categoryId: category._id,
+                    title,
+                    description: about,
+                    price,
+                    city,
+                };
+                const item = await Item.create(newItem);
+                category.itemId.push({ _id: item.id });
+                await category.save();
+                for (let i = 0; i < req.files.length; i++) {
+                    const imageSave = await Image.create({
+                        imageUrl: `images/${req.files[i].filename}`,
+                    });
+                    item.imageId.push({ _id: imageSave._id });
+                    await item.save();
+                }
+            }
+            req.flash('alertMessage', 'Success Add Bank');
+            req.flash('alertStatus', 'success');
+            res.redirect('/admin/items');
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`);
+            req.flash('alertStatus', 'danger');
+            res.redirect('/admin/items');
+        }
     },
 
     viewBooking: (req, res) => {
