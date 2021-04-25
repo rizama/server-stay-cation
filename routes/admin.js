@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const adminController = require('../controllers/adminController');
-const { uploadSingle } = require('../middleware/multer');
+const { uploadSingle, uploadMultiple } = require('../middleware/multer');
 
 // Dashboard
 router.get('/dashboard', adminController.viewDashboard);
@@ -16,8 +16,8 @@ router.post('/bank', uploadSingle, adminController.storeBank);
 router.put('/bank', uploadSingle, adminController.updateBank);
 router.delete('/bank/:id', adminController.destroyBank);
 
-
 router.get('/items', adminController.viewItem);
+router.post('/items', uploadMultiple, adminController.storeItem);
 router.get('/booking', adminController.viewBooking);
 
 module.exports = router;
