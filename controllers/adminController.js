@@ -217,9 +217,25 @@ module.exports = {
             res.redirect('/admin/items');
         }
     },
-    showImageItem: async () => {
+    showImageItem: async (req, res) => {
         try {
             const { id } = req.params;
+            const item = await Item.findOne({ _id: id }).populate({
+                path: 'imageId',
+                select: 'id imageUrl',
+            });
+            console.log(item);
+            const alertMessage = req.flash('alertMessage');
+            const alertStatus = req.flash('alertStatus');
+            const alert = { message: alertMessage, status: alertStatus };
+            const categories = await Category.find();
+            res.render('admin/item/view_item', {
+                title: 'Staycation | Show Item Images',
+                categories,
+                alert,
+                action: 'show image',
+                item,
+            });
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
