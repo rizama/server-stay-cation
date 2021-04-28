@@ -224,7 +224,7 @@ module.exports = {
                 path: 'imageId',
                 select: 'id imageUrl',
             });
-            console.log(item);
+
             const alertMessage = req.flash('alertMessage');
             const alertStatus = req.flash('alertStatus');
             const alert = { message: alertMessage, status: alertStatus };
@@ -234,6 +234,32 @@ module.exports = {
                 categories,
                 alert,
                 action: 'show image',
+                item,
+            });
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`);
+            req.flash('alertStatus', 'danger');
+            res.redirect('/admin/items');
+        }
+    },
+    showEditItem: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const item = await Item.findOne({ _id: id }).populate({
+                path: 'imageId',
+                select: 'id imageUrl',
+            });
+
+            const alertMessage = req.flash('alertMessage');
+            const alertStatus = req.flash('alertStatus');
+            const alert = { message: alertMessage, status: alertStatus };
+            const categories = await Category.find();
+            console.log(item);
+            res.render('admin/item/view_item', {
+                title: 'Staycation | Edit Item',
+                categories,
+                alert,
+                action: 'edit',
                 item,
             });
         } catch (error) {
