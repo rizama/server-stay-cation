@@ -268,6 +268,9 @@ module.exports = {
             res.redirect('/admin/items');
         }
     },
+    updateItem: async () => {
+        // code here..
+    },
 
     viewBooking: (req, res) => {
         res.render('admin/booking/view_booking', {
