@@ -20,7 +20,7 @@ router.get('/items', adminController.viewItem);
 router.post('/items', uploadMultiple, adminController.storeItem);
 router.get('/items/show-images/:id', adminController.showImageItem);
 router.get('/items/:id', uploadMultiple, adminController.showEditItem);
-// router.post('/items', uploadMultiple, adminController.storeItem);
+router.put('/items/:id', uploadMultiple, adminController.updateItem);
 
 
 router.get('/booking', adminController.viewBooking);
