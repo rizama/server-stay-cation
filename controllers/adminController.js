@@ -268,8 +268,53 @@ module.exports = {
             res.redirect('/admin/items');
         }
     },
-    updateItem: async () => {
-        // code here..
+    updateItem: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { categoryId, title, price, city, about } = req.body;
+            const item = await Item.findOne({ _id: id })
+                .populate({
+                    path: 'imageId',
+                    select: 'id imageUrl',
+                })
+                .populate({ path: 'categoryId', select: 'id name' });
+
+            if (req.files.length) {
+                for (let i = 0; i < item.imageId.length; i++) {
+                    const imageUpdate = await Image.findOne({
+                        _id: item.imageId[i]._id,
+                    });
+                    await fs.unlink(
+                        path.join(`public/${imageUpdate.imageUrl}`)
+                    );
+                    imageUpdate.imageUrl = `images/${req.files[i].filename}`;
+                    await imageUpdate.save();
+                }
+                item.title = title;
+                item.price = price;
+                item.city = city;
+                item.description = about;
+                item.categoryId = categoryId;
+                await item.save();
+                req.flash('alertMessage', 'Success update Item');
+                req.flash('alertStatus', 'success');
+                res.redirect('/admin/items');
+            } else {
+                item.title = req.title;
+                item.price = req.price;
+                item.city = req.city;
+                item.description = req.about;
+                item.categoryId = req.categoryId;
+                await item.save();
+                req.flash('alertMessage', 'Success Update Item');
+                req.flash('alertStatus', 'success');
+                res.redirect('/admin/items');
+            }
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`);
+            req.flash('alertStatus', 'danger');
+            res.redirect('/admin/items');
+        }
     },
 
     viewBooking: (req, res) => {
