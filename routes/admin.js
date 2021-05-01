@@ -21,6 +21,8 @@ router.post('/items', uploadMultiple, adminController.storeItem);
 router.get('/items/show-images/:id', adminController.showImageItem);
 router.get('/items/:id', uploadMultiple, adminController.showEditItem);
 router.put('/items/:id', uploadMultiple, adminController.updateItem);
+router.delete('/items/:id', adminController.destroyItem);
+
 
 
 router.get('/booking', adminController.viewBooking);
