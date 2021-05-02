@@ -23,6 +23,7 @@ router.get('/items/:id', uploadMultiple, adminController.showEditItem);
 router.put('/items/:id', uploadMultiple, adminController.updateItem);
 router.delete('/items/:id/delete', adminController.destroyItem);
 
+router.get('/items/show-detail-item/:itemId', adminController.viewDetailItem);
 
 
 router.get('/booking', adminController.viewBooking);
