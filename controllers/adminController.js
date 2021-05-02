@@ -316,7 +316,7 @@ module.exports = {
             res.redirect('/admin/items');
         }
     },
-    destroyItem: (req, res) => {
+    destroyItem: async (req, res) => {
         try {
             const { id } = req.params;
             const item = await Item.findOne({ _id: id }).populate('imageId');
