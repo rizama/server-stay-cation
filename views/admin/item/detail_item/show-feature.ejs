@@ -1,0 +1,82 @@
+<div
+    class="tab-pane fade show active"
+    id="show-feature"
+    role="tabpanel"
+    aria-labelledby="home-tab"
+>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4 mt-2">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <form
+                        method="POST"
+                        action="/admin/bank"
+                        enctype="multipart/form-data"
+                    >
+                        <div class="form-group">
+                            <label for="name-edit">Name</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                aria-describedby="emailHelp"
+                                placeholder="Enter Name"
+                                name="name"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="name-edit">QTY</label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="qty"
+                                aria-describedby="emailHelp"
+                                placeholder="Quentity"
+                                name="qty"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="name-edit">Image</label>
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="image-add"
+                                aria-describedby="emailHelp"
+                                name="image"
+                                required
+                            />
+                        </div>
+                        <div class="form-group form-check"></div>
+                        <button type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-7">
+                    <div class="table-responsive">
+                        <table
+                            class="table table-bordered"
+                            id="dataTable"
+                            width="100%"
+                            cellspacing="0"
+                        >
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>QTY</th>
+                                    <th>Image URL</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
