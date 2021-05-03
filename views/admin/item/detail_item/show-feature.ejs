@@ -11,7 +11,7 @@
                 <div class="col-md-5">
                     <form
                         method="POST"
-                        action="/admin/bank"
+                        action="/admin/items/add-feature"
                         enctype="multipart/form-data"
                     >
                         <div class="form-group">
@@ -50,6 +50,7 @@
                             />
                         </div>
                         <div class="form-group form-check"></div>
+                        <input type="hidden" name="itemId" value="<%= itemId %>">
                         <button type="submit" class="btn btn-primary">
                             Save
                         </button>
