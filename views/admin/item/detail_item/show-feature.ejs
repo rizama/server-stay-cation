@@ -86,7 +86,7 @@
                                     <td><img src="http://localhost:3000/<%= element.imageUrl %>" alt="imageURL" width="70px"></td>
                                     <td>
                                         <form
-                                            action="/admin/bank/<%= element.id %>?_method=DELETE"
+                                            action="/admin/items/<%= itemId %>/feature/<%= element.id %>/delete?_method=DELETE"
                                             method="POST"
                                         >
                                             <a
