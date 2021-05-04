@@ -395,6 +395,37 @@ module.exports = {
             res.redirect(`/admin/items/show-detail-item/${itemId}`);
         }
     },
+    updateFeature: async (req, res) => {
+        try {
+            const { id, name, qty, itemId } = req.body;
+
+            console.log(itemId);
+
+            const feature = await Feature.findOne({ _id: id });
+
+            feature.name = name;
+            feature.qty = qty;
+
+            if (req.file) {
+                try {
+                    await fs.unlink(path.join(`public/${feature.imageUrl}`));
+                } catch (error) {
+                    console.log('Image Not Found');
+                }
+                feature.imageUrl = `images/${req.file.filename}`;
+            }
+            await feature.save();
+
+            req.flash('alertMessage', 'Success Update Feature');
+            req.flash('alertStatus', 'success');
+            res.redirect(`/admin/items/show-detail-item/${itemId}/`);
+        } catch (error) {
+            console.log(error);
+            req.flash('alertMessage', `${error.message}`);
+            req.flash('alertStatus', 'danger');
+            res.redirect(`/admin/items/show-detail-item/${itemId}/`);
+        }
+    },
 
     viewBooking: (req, res) => {
         res.render('admin/booking/view_booking', {
