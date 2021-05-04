@@ -350,14 +350,14 @@ module.exports = {
             const alertStatus = req.flash('alertStatus');
             const alert = { message: alertMessage, status: alertStatus };
 
-            // const feature = await Feature.find({ itemId: itemId });
+            const feature = await Feature.find({ itemId: itemId });
             // const activity = await Activity.find({ itemId: itemId });
 
             res.render('admin/item/detail_item/view-detail-item', {
                 title: 'Staycation | Detail Item',
                 alert,
                 itemId,
-                // feature,
+                feature,
                 // activity,
                 // user: req.session.user,
             });
