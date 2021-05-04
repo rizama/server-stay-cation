@@ -50,7 +50,11 @@
                             />
                         </div>
                         <div class="form-group form-check"></div>
-                        <input type="hidden" name="itemId" value="<%= itemId %>">
+                        <input
+                            type="hidden"
+                            name="itemId"
+                            value="<%= itemId %>"
+                        />
                         <button type="submit" class="btn btn-primary">
                             Save
                         </button>
@@ -69,11 +73,40 @@
                                     <th>No</th>
                                     <th>Name</th>
                                     <th>QTY</th>
-                                    <th>Image URL</th>
+                                    <th>Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                <% feature.forEach((element, index) => { %>
+                                <tr>
+                                    <td><%= index+1 %></td>
+                                    <td><%= element.name %></td>
+                                    <td><%= element.qty %></td>
+                                    <td><img src="http://localhost:3000/<%= element.imageUrl %>" alt="imageURL" width="70px"></td>
+                                    <td>
+                                        <form
+                                            action="/admin/bank/<%= element.id %>?_method=DELETE"
+                                            method="POST"
+                                        >
+                                            <a
+                                                href="javascript:void();"
+                                                type="button"
+                                                class="btn btn-warning btn-circle btn-sm button-update"
+                                                data-id="<%= element.id %>"
+                                                ><i class="fas fa-edit"></i
+                                            ></a>
+                                            <button
+                                                type="submit"
+                                                class="btn btn-danger btn-circle btn-sm"
+                                            >
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
                         </table>
                     </div>
                 </div>
