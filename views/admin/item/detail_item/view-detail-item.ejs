@@ -44,13 +44,13 @@
                                 role="tab"
                                 aria-controls="profile"
                                 aria-selected="false"
-                                >Show Activity</a
-                            >
+                                >Show Activity
+                            </a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <%- include("./show-feature.ejs") %> 
-                        <%- include("./show-activity.ejs") %> 
+                        <%- include("./show-activity.ejs") %>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -113,11 +113,25 @@
     </div>
 
     <%- include('../../../partials/js.ejs') %>
+    <%- include('./edit-modal-feature.ejs') %> 
 
     <script>
         $(document).ready(function () {
             $('#dataTableActivity').DataTable();
-        })
+        });
+
         CKEDITOR.replace('about');
+
+        $('#dataTable').on('click', '.button-update', function () {
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            let qty = $(this).data('qty');
+
+            $('#edit-modal-feature').modal('show');
+
+            $('.id').val(id);
+            $('.name').val(name);
+            $('.qty').val(qty);
+        });
     </script>
 </body>
