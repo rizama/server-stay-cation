@@ -43,7 +43,7 @@
                             <input
                                 type="file"
                                 class="form-control"
-                                id="image-add"
+                                id="image-feature-add"
                                 aria-describedby="emailHelp"
                                 name="image"
                                 required
@@ -94,6 +94,8 @@
                                                 type="button"
                                                 class="btn btn-warning btn-circle btn-sm button-update"
                                                 data-id="<%= element.id %>"
+                                                data-name="<%= element.name %>"
+                                                data-qty="<%= element.qty %>"
                                                 ><i class="fas fa-edit"></i
                                             ></a>
                                             <button
