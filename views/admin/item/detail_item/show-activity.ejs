@@ -11,7 +11,7 @@
                 <div class="col-md-5">
                     <form
                         method="POST"
-                        action="/admin/bank"
+                        action="/admin/items/add-activity"
                         enctype="multipart/form-data"
                     >
                         <div class="form-group">
@@ -49,6 +49,7 @@
                                 required
                             />
                         </div>
+                        <input type="hidden" name="itemId" value="<%= itemId %>">
                         <div class="form-group form-check"></div>
                         <button type="submit" class="btn btn-primary">
                             Save
