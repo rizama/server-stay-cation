@@ -29,6 +29,7 @@ router.put('/items/update/feature', uploadSingle, adminController.updateFeature)
 router.delete('/items/:itemId/feature/:id/delete', adminController.destroyFeature);
 
 router.post('/items/add-activity', uploadSingle, adminController.addActivity);
+router.put('/items/update/activity', uploadSingle, adminController.updateActivity);
 
 
 router.get('/booking', adminController.viewBooking);
