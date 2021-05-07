@@ -352,14 +352,14 @@ module.exports = {
             const alert = { message: alertMessage, status: alertStatus };
 
             const feature = await Feature.find({ itemId: itemId });
-            // const activity = await Activity.find({ itemId: itemId });
+            const activity = await Activity.find({ itemId: itemId });
 
             res.render('admin/item/detail_item/view-detail-item', {
                 title: 'Staycation | Detail Item',
                 alert,
                 itemId,
                 feature,
-                // activity,
+                activity,
                 // user: req.session.user,
             });
         } catch (error) {
