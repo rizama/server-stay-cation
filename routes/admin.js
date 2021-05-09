@@ -30,6 +30,7 @@ router.delete('/items/:itemId/feature/:id/delete', adminController.destroyFeatur
 
 router.post('/items/add-activity', uploadSingle, adminController.addActivity);
 router.put('/items/update/activity', uploadSingle, adminController.updateActivity);
+router.delete('/items/:itemId/activity/:id/delete', adminController.destroyActivity);
 
 
 router.get('/booking', adminController.viewBooking);
