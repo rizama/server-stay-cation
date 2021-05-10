@@ -492,7 +492,7 @@ module.exports = {
                 await activity.save();
                 req.flash('alertMessage', 'Success Update activity');
                 req.flash('alertStatus', 'success');
-                res.redirect(`/admin/item/show-detail-item/${itemId}`);
+                res.redirect(`/admin/items/show-detail-item/${itemId}`);
             } else {
                 await fs.unlink(path.join(`public/${activity.imageUrl}`));
                 activity.name = name;
@@ -501,12 +501,12 @@ module.exports = {
                 await activity.save();
                 req.flash('alertMessage', 'Success Update activity');
                 req.flash('alertStatus', 'success');
-                res.redirect(`/admin/item/show-detail-item/${itemId}`);
+                res.redirect(`/admin/items/show-detail-item/${itemId}`);
             }
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
-            res.redirect(`/admin/item/show-detail-item/${itemId}`);
+            res.redirect(`/admin/items/show-detail-item/${itemId}`);
         }
     },
     destroyActivity: async (req, res) => {
