@@ -1,8 +1,10 @@
 var seeder = require('mongoose-seed');
 var mongoose = require('mongoose');
 
+require('dotenv').config();
+
 // Connect to MongoDB via Mongoose
-seeder.connect('mongodb+srv://codeathome:bwamern@cluster0-40j6e.mongodb.net/db_staycation?retryWrites=true&w=majority', {
+seeder.connect(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0-shard-00-00.3w0ji.mongodb.net:27017,cluster0-shard-00-01.3w0ji.mongodb.net:27017,cluster0-shard-00-02.3w0ji.mongodb.net:27017/${process.env.MONGO_DEFAULT_DB}?ssl=true&replicaSet=atlas-13gze6-shard-0&authSource=${process.env.MONGO_USER}&retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: true,
@@ -20,11 +22,11 @@ seeder.connect('mongodb+srv://codeathome:bwamern@cluster0-40j6e.mongodb.net/db_s
     './models/Image',
     './models/Member',
     './models/Booking',
-    './models/Users'
+    './models/User'
   ]);
 
   // Clear specified collections
-  seeder.clearModels(['Category', 'Bank', 'Item', 'Member', 'Item', 'Feature', 'Image', 'Booking', 'Users'], function () {
+  seeder.clearModels(['Category', 'Bank', 'Item', 'Member', 'Item', 'Feature', 'Image', 'Booking', 'User'], function () {
 
     // Callback to populate DB once collections have been cleared
     seeder.populateModels(data, function () {
@@ -515,7 +517,7 @@ var data = [
     ]
   },
   {
-    'model': 'Users',
+    'model': 'User',
     'documents': [
       {
         _id: mongoose.Types.ObjectId('5e96cbe292b97300fc903345'),
