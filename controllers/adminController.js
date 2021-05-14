@@ -8,6 +8,29 @@ const fs = require('fs-extra');
 const path = require('path');
 
 module.exports = {
+    viewLogin: async (req, res) => {
+        try {
+            const alertMessage = req.flash('alertMessage');
+            const alertStatus = req.flash('alertStatus');
+            const alert = { message: alertMessage, status: alertStatus };
+            res.render('index', {
+                alert,
+                title: 'Staycation | Login',
+            });
+        } catch (error) {
+            res.redirect('admin/login');
+        }
+    },
+
+    loginAction: async (req, res) => {
+        try {
+            const { username, password } = req.body;
+            // Unfinished
+        } catch (error) {
+            res.redirect('admin/login');
+        }
+    },
+
     viewDashboard: (req, res) => {
         res.render('admin/dashboard/view_dashboard', {
             title: 'Staycation | Dashboard ',
