@@ -4,8 +4,10 @@ const Item = require('../models/Item');
 const Image = require('../models/Image');
 const Feature = require('../models/Feature');
 const Activity = require('../models/Activity');
+const User = require('../models/User');
 const fs = require('fs-extra');
 const path = require('path');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
     viewLogin: async (req, res) => {
@@ -25,9 +27,33 @@ module.exports = {
     loginAction: async (req, res) => {
         try {
             const { username, password } = req.body;
-            // Unfinished
+            const user = await Users.findOne({ username: username });
+            if (!user) {
+                req.flash('alertMessage', 'User yang anda masukan tidak ada!!');
+                req.flash('alertStatus', 'danger');
+                res.redirect('/admin/signin');
+            }
+            const isPasswordMatch = await bcrypt.compare(
+                password,
+                user.password
+            );
+            if (!isPasswordMatch) {
+                req.flash(
+                    'alertMessage',
+                    'Password yang anda masukan tidak cocok!!'
+                );
+                req.flash('alertStatus', 'danger');
+                res.redirect('/admin/signin');
+            }
+
+            req.session.user = {
+                id: user.id,
+                username: user.username,
+            };
+
+            res.redirect('/admin/dashboard');
         } catch (error) {
-            res.redirect('admin/login');
+            res.redirect('/admin/signin');
         }
     },
 
