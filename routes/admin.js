@@ -4,6 +4,7 @@ const { uploadSingle, uploadMultiple } = require('../middleware/multer');
 
 // Login
 router.get('/login', adminController.viewLogin);
+router.post('/login', adminController.loginAction);
 
 // Dashboard
 router.get('/dashboard', adminController.viewDashboard);
