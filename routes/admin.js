@@ -1,10 +1,13 @@
 const router = require('express').Router();
 const adminController = require('../controllers/adminController');
 const { uploadSingle, uploadMultiple } = require('../middleware/multer');
+const auth = require('../middleware/auth');
 
 // Login
 router.get('/login', adminController.viewLogin);
 router.post('/login', adminController.loginAction);
+
+router.use(auth);
 
 // Dashboard
 router.get('/dashboard', adminController.viewDashboard);
@@ -29,13 +32,26 @@ router.delete('/items/:id/delete', adminController.destroyItem);
 
 router.get('/items/show-detail-item/:itemId', adminController.viewDetailItem);
 router.post('/items/add-feature', uploadSingle, adminController.addFeature);
-router.put('/items/update/feature', uploadSingle, adminController.updateFeature);
-router.delete('/items/:itemId/feature/:id/delete', adminController.destroyFeature);
+router.put(
+    '/items/update/feature',
+    uploadSingle,
+    adminController.updateFeature
+);
+router.delete(
+    '/items/:itemId/feature/:id/delete',
+    adminController.destroyFeature
+);
 
 router.post('/items/add-activity', uploadSingle, adminController.addActivity);
-router.put('/items/update/activity', uploadSingle, adminController.updateActivity);
-router.delete('/items/:itemId/activity/:id/delete', adminController.destroyActivity);
-
+router.put(
+    '/items/update/activity',
+    uploadSingle,
+    adminController.updateActivity
+);
+router.delete(
+    '/items/:itemId/activity/:id/delete',
+    adminController.destroyActivity
+);
 
 router.get('/booking', adminController.viewBooking);
 
