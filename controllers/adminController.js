@@ -4,6 +4,8 @@ const Item = require('../models/Item');
 const Image = require('../models/Image');
 const Feature = require('../models/Feature');
 const Activity = require('../models/Activity');
+const Booking = require('../models/Booking');
+const Member = require('../models/Member');
 const User = require('../models/User');
 const fs = require('fs-extra');
 const path = require('path');
@@ -69,7 +71,7 @@ module.exports = {
     viewDashboard: (req, res) => {
         res.render('admin/dashboard/view_dashboard', {
             title: 'Staycation | Dashboard ',
-            user: req.session.user
+            user: req.session.user,
         });
     },
 
@@ -83,7 +85,7 @@ module.exports = {
                 categories,
                 alert,
                 title: 'Staycation | Categories',
-                user: req.session.user
+                user: req.session.user,
             });
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
@@ -147,7 +149,7 @@ module.exports = {
                 title: 'Staycation | Bank',
                 alert,
                 bank,
-                user: req.session.user
+                user: req.session.user,
             });
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
@@ -241,7 +243,7 @@ module.exports = {
                 alert,
                 action: 'view',
                 item,
-                user: req.session.user
+                user: req.session.user,
             });
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
@@ -299,7 +301,7 @@ module.exports = {
                 alert,
                 action: 'show image',
                 item,
-                user: req.session.user
+                user: req.session.user,
             });
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
@@ -326,7 +328,7 @@ module.exports = {
                 alert,
                 action: 'edit',
                 item,
-                user: req.session.user
+                user: req.session.user,
             });
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
@@ -602,10 +604,15 @@ module.exports = {
         }
     },
 
-    viewBooking: (req, res) => {
-        res.render('admin/booking/view_booking', {
-            title: 'Staycation | Booking',
-            user: req.session.user
-        });
+    viewBooking: async (req, res) => {
+        try {
+            const booking = await Booking.find()
+                .populate('memberId')
+                .populate('bankId');
+            res.render('admin/booking/view_booking', {
+                title: 'Staycation | Booking',
+                user: req.session.user,
+            });
+        } catch (error) {}
     },
 };
