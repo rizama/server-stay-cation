@@ -18,26 +18,26 @@ module.exports = {
             const alertStatus = req.flash('alertStatus');
             const alert = { message: alertMessage, status: alertStatus };
             if (req.session.user == null || req.session.user == undefined) {
-                res.render('index', {
+                return res.render('index', {
                     alert,
                     title: 'Staycation | Login',
                 });
             }
 
-            res.redirect('/admin/dashboard');
+            return res.redirect('/admin/dashboard');
         } catch (error) {
-            res.redirect('admin/login');
+            return res.redirect('admin/login');
         }
     },
 
     loginAction: async (req, res) => {
         try {
             const { username, password } = req.body;
-            const user = await Users.findOne({ username: username });
+            const user = await User.findOne({ username: username });
             if (!user) {
                 req.flash('alertMessage', 'User yang anda masukan tidak ada!!');
                 req.flash('alertStatus', 'danger');
-                res.redirect('/admin/signin');
+                return res.redirect('/admin/login');
             }
             const isPasswordMatch = await bcrypt.compare(
                 password,
@@ -49,7 +49,7 @@ module.exports = {
                     'Password yang anda masukan tidak cocok!!'
                 );
                 req.flash('alertStatus', 'danger');
-                res.redirect('/admin/login');
+                return res.redirect('/admin/login');
             }
 
             req.session.user = {
@@ -57,8 +57,9 @@ module.exports = {
                 username: user.username,
             };
 
-            res.redirect('/admin/dashboard');
+            return res.redirect('/admin/dashboard');
         } catch (error) {
+            console.log(error);
             res.redirect('/admin/login');
         }
     },
@@ -609,9 +610,11 @@ module.exports = {
             const booking = await Booking.find()
                 .populate('memberId')
                 .populate('bankId');
+
             res.render('admin/booking/view_booking', {
                 title: 'Staycation | Booking',
                 user: req.session.user,
+                booking
             });
         } catch (error) {}
     },
