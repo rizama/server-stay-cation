@@ -467,7 +467,7 @@ var data = [
         memberId: mongoose.Types.ObjectId('5e96cbe292b97300fc903333'),
         bankId: mongoose.Types.ObjectId('5e96cbe292b97300fc903323'),
         payments: {
-          proofPayment: 'images/bukti.jpg',
+          proofPayment: 'images/bukti.jpeg',
           bankFrom: 'BCA',
           status: 'Proses',
           accountHolder: 'ang'
