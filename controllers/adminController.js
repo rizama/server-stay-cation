@@ -614,7 +614,26 @@ module.exports = {
             res.render('admin/booking/view_booking', {
                 title: 'Staycation | Booking',
                 user: req.session.user,
-                booking
+                booking,
+            });
+        } catch (error) {
+            res.redirect(`/admin/booking`);
+        }
+    },
+
+    showDetailBooking: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const booking = await Booking.findOne({ _id: id })
+                .populate('memberId')
+                .populate('bankId');
+
+            console.log(booking);
+
+            res.render('admin/booking/detail_booking', {
+                title: 'Staycation | Detail Booking',
+                user: req.session.user,
+                booking,
             });
         } catch (error) {}
     },
