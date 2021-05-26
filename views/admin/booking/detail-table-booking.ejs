@@ -18,6 +18,20 @@
                         alt="image"
                         style="width: 100%; display: block"
                     />
+                    <div class="row ml-1">
+                        <form action="" method="post">
+                            <button class="btn btn-success btn-sm" type="submit">
+                                <i class="fas fa-check"></i>
+                                Confirmation
+                            </button>
+                        </form>
+                        <form action="" method="post" class="ml-2">
+                            <button class="btn btn-danger btn-sm" type="submit">
+                                <i class="fas fa-times"></i>
+                                Reject
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <div class="col-md-8">
                     <div class="table-responsive">
@@ -29,14 +43,20 @@
                         >
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Image URL</th>
-                                    <th>Action</th>
+                                    <th>Name Member</th>
+                                    <th>Total</th>
+                                    <th>Bank From</th>
+                                    <th>Title</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                <tr>
+                                    <td><%= booking.memberId.firstName %> <%= booking.memberId.lasName %></td>
+                                    <td>$ <%= booking.total %></td>
+                                    <td><%= booking.bankId.nameBank %></td>
+                                    <td><%= booking.itemId.title %></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
