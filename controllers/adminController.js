@@ -69,11 +69,17 @@ module.exports = {
         req.redirect('admin/login');
     },
 
-    viewDashboard: (req, res) => {
-        res.render('admin/dashboard/view_dashboard', {
-            title: 'Staycation | Dashboard ',
-            user: req.session.user,
-        });
+    viewDashboard: async (req, res) => {
+        try {
+            const member = await Member.find();
+            res.render('admin/dashboard/view_dashboard', {
+                title: 'Staycation | Dashboard ',
+                user: req.session.user,
+                member
+            });
+        } catch (error) {
+            res.redirect('/admin/dahsboard');
+        }
     },
 
     viewCategory: async (req, res) => {
@@ -635,7 +641,7 @@ module.exports = {
                 title: 'Staycation | Detail Booking',
                 user: req.session.user,
                 booking,
-                alert
+                alert,
             });
         } catch (error) {
             res.redirect('/admin/booking');
