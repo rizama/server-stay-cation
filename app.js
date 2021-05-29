@@ -20,6 +20,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let adminRouter = require('./routes/admin');
+let apiRouter = require('./routes/api');
 
 var app = express();
 
@@ -45,6 +46,7 @@ app.use('/sb-admin-2', express.static(path.join(__dirname, './node_modules/start
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
+app.use('/api/v1/member', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
