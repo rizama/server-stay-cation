@@ -12,7 +12,7 @@ require('dotenv').config();
 const mongoose = require("mongoose");
 // const url = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0-shard-00-00.3w0ji.mongodb.net:27017,cluster0-shard-00-01.3w0ji.mongodb.net:27017,cluster0-shard-00-02.3w0ji.mongodb.net:27017/${process.env.MONGO_DEFAULT_DB}?ssl=true&replicaSet=atlas-13gze6-shard-0&authSource=${process.env.MONGO_USER}&retryWrites=true&w=majority`;
 const url = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.3w0ji.mongodb.net/${process.env.MONGO_DEFAULT_DB}?retryWrites=true&w=majority`;
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: true })
   .then((result => {
     console.log("Connected to Mongodb");
   }))
