@@ -176,8 +176,8 @@ module.exports = {
 
         const newBooking = {
             invoice,
-            bookingStartDate: moment(bookingStartDate, 'DD-MM-YYYY').tz('Asia/Jakarta').toDate(),
-            bookingEndDate: moment(bookingEndDate, 'DD-MM-YYYY').tz('Asia/Jakarta').toDate(),
+            bookingStartDate: bookingStartDate,
+            bookingEndDate: bookingEndDate,
             total: (total += tax),
             itemId: {
                 _id: item.id,
